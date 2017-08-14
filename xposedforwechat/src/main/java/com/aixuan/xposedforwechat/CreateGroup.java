@@ -174,7 +174,7 @@ public class CreateGroup implements IXposedHookLoadPackage {
      * @param listView  包含要查找元素的ListView
      * @param id        要查找元素的id
      */
-    public void scrollListViewAndSelectItem(ListView listView, MyItemCallback callback){
+    public void scrollListViewAndSelectItem(ListView listView, int id, MyItemCallback callback){
         Log.i("seek", "通过id查找元素的方法开始执行");
         int scrollHeight = 0;
         int width = listView.getWidth();
@@ -192,17 +192,16 @@ public class CreateGroup implements IXposedHookLoadPackage {
         while(true){
             for (int i = startViewPosition; i <= lastVisiblePosition; i++) {
                 Log.i("seek", "循环执行" + i);
-                View itemView = listView.getChildAt(i-listView.getFirstVisiblePosition());
-                Object item = listView.getAdapter().getItem(i);
-                Log.i("seek", "item position："+(i-listView.getFirstVisiblePosition())+" itemView:"+itemView);
-                scrollHeight += itemView.getHeight();
+                View item = listView.getChildAt(i-listView.getFirstVisiblePosition());
+                Log.i("seek", "item position："+(i-listView.getFirstVisiblePosition())+" item:"+item);
+                scrollHeight += item.getHeight();
                 Log.i("seek", "即将根据id查找view");
-//                //复选框
-//                View nh = item.findViewById(id);
+                //复选框
+                View nh = item.findViewById(id);
                 Log.i("seek", "查找View结束");
-                if (itemView != null) {
+                if (nh != null) {
                     Log.i("seek", "即将点击nh");
-                    callback.handleItem(item,itemView);
+                    callback.handleItem(item);
                 } else
                     continue;
                 Log.i("seek", "点击" + i);
@@ -275,7 +274,7 @@ public class CreateGroup implements IXposedHookLoadPackage {
     }
 
     interface MyItemCallback {
-        void handleItem(Object item,View view);
+        void handleItem(View view);
     }
 
     public Solo soloInit(Activity mActivity) {
@@ -370,12 +369,12 @@ public class CreateGroup implements IXposedHookLoadPackage {
                 if (position != null && username != null){
                     userMap.put(position, username);
                 }
-
                 //Log.i(TAG, header + ": " + "index:" + i + " " + arg.getClass().getName() + " field name:" + e.getKey() + " field value:" + param);
             }
             //Log.i(TAG, "*************************************");
             i++;
         }
+        //修改之后
         return userMap;
     }
 
