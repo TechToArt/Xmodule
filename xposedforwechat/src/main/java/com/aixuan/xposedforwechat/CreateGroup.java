@@ -67,117 +67,93 @@ public class CreateGroup implements IXposedHookLoadPackage {
                 final Handler handler = new android.os.Handler(Looper.getMainLooper()){
                     @Override
                     public void handleMessage(Message msg) {
-                        ((CheckBox)msg.obj).setChecked(true);
+                        //((View)msg.obj).performClick();
+                        /*Solo solo = soloInit(launcherActivity);
+                        solo.clickOnView((View)msg.obj);*/
+                        Log.i("findItemOnListView", "对item进行相应处理");
                     }
                 };
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            solo = soloInit(launcherActivity);
-//                            new Thread() {
-//                                @Override
-//                                public void run() {
-//                                    super.run();
-//                                    final Solo solo = soloInit(launcherActivity);
-//                                    Log.i(TAG, "当前线程：" + Thread.currentThread().getName() + " " + System.currentTimeMillis());
-//                                    solo.sleep(6000);
-//                                    Log.i(TAG, "即将点击通讯录 " + System.currentTimeMillis());
-//                                    solo.clickOnText("通讯录");
-//                                    solo.clickOnText("群聊");
-//                                    Log.i(TAG, "点击群聊结束");
-//                                    solo.sleep(1000);
-//
-//                                    Activity chatroomContactActivity = solo.getCurrentActivity();
-//                                    View newGroupChat = null;
-//                                    View decorView = chatroomContactActivity.getWindow().getDecorView();
-//                                    getViewList(decorView);
-//                                    Log.i(TAG, "遍历结束 textViews.size()=" + textViews.size());
-//                                    for (int i = 0; i < textViews.size(); i++) {
-//                                        if ("新群聊".equals(textViews.get(i).getContentDescription())) {
-//                                            newGroupChat = textViews.get(i);
-//                                            Log.i(TAG, "找到新建群聊按钮");
-//                                            break;
-//                                        }
-//                                        //Log.i(TAG, "content-desc:"+textViews.get(i).getContentDescription());
-//                                    }
-//                                    solo.clickOnView(newGroupChat);
-//                                    solo.sleep(1000);
-//
-//                                    //选择好友建群
-//                                    Activity selectContactActivity = solo.getCurrentActivity();
-//
-//                                    ListView listView = (ListView) solo.getView("es");
-//                                    ListAdapter listAdapter = listView.getAdapter();
-//                                    int firstVisiblePosition = listView.getFirstVisiblePosition();
-//
-//                                    /*Log.i(TAG, "listView HeaderViewsCount:" + listView.getHeaderViewsCount());
-//                                    Object item = listAdapter.getItem(listView.getHeaderViewsCount());
-//                                    int headerViews = listView.getHeaderViewsCount();
-//                                    Log.i(TAG, "item:"+item);
-//                                    Object[] items = new Object[listAdapter.getCount()];
-//                                    for (int i=0; i<listAdapter.getCount(); i++){
-//                                        items[i] = listAdapter.getItem(i);
-//                                    }
-//                                    Map<String, String> userMap = getGroupUsers(items,"chatroom item");
-//                                    Set<Map.Entry<String, String>> userSet = userMap.entrySet();
-//                                    for (Map.Entry<String, String> user : userSet){
-//                                        Log.i(TAG, user.getKey()+"："+user.getValue());
-//                                        int position = Integer.parseInt(user.getKey());
-//                                        Log.i(TAG, "position="+position);
-//                                        //判断当前显示页面是否有要勾选的复选框
-//                                        while(position>lastVisiblePosition){
-//                                            solo.drag(500, 500, listView.getChildAt(lastVisiblePosition).getY(),
-//                                                    listView.getChildAt(firstVisiblePosition).getY(), 55);
-//                                            firstVisiblePosition = listView.getFirstVisiblePosition();
-//                                            lastVisiblePosition = listView.getLastVisiblePosition();
-//                                        }
-//                                        View itemView = listView.getChildAt(position+headerViews);
-//                                        solo.clickOnView(itemView);
-//                                        *//*CheckBox checkBox = (CheckBox) itemView.findViewById(0x7f10020c);
-//                                        if (checkBox == null)
-//                                            Log.i(TAG, "checkBox == null");
-//                                        else
-//                                            Log.i(TAG, "checkBox != null");
-//                                        checkBox.setChecked(true);*//*
-//
-//                                    }
-//                                    solo.clickOnView(solo.getView("gd"));*/
-//
-//                                    //listView的遍历点击操作
-//                                    for (count=0; count<10; count++){
-//                                        findItemOnListView(listView, new MyItemCallback() {
-//                                            @Override
-//                                            public boolean handleItem(Object item, View itemView) {
-//                                                Log.i("findItemOnListView", "count:"+count);
-//                                                CheckBox view = (CheckBox) itemView.findViewById(0x7f10020c);
-//                                                if (view != null && !view.isSelected()){
-//                                                    /*Solo solo1 = soloInit((Activity) itemView.getContext());
-//                                                    solo1.clickOnView(view);*/
-//                                                    Log.i(TAG, "handleItem执行");
-//                                                    view.setChecked(true);
-//                                                    count++;
-//                                                    flag = true;
-//                                                }else{
-//                                                    flag = false;
-//                                                }
-//                                                if (count == 9)
-//                                                    return true;
-//                                                return false;
-//                                            }
-//                                        });
-//                                        if (!flag)
-//                                            count--;
-//                                    }
-//                                    //scrollListViewAndSelectItem(listView, positions);
-//
-//                                }
-//                            }.start();
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, 1000);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            solo = soloInit(launcherActivity);
+                            new Thread() {
+                                @Override
+                                public void run() {
+                                    super.run();
+                                    final Solo solo = soloInit(launcherActivity);
+                                    Log.i(TAG, "当前线程：" + Thread.currentThread().getName() + " " + System.currentTimeMillis());
+                                    solo.sleep(6000);
+                                    Log.i(TAG, "即将点击通讯录 " + System.currentTimeMillis());
+                                    solo.clickOnText("通讯录");
+                                    solo.clickOnText("群聊");
+                                    Log.i(TAG, "点击群聊结束");
+                                    solo.sleep(1000);
+
+                                    Activity chatroomContactActivity = solo.getCurrentActivity();
+                                    View newGroupChat = null;
+                                    View decorView = chatroomContactActivity.getWindow().getDecorView();
+                                    getViewList(decorView);
+                                    Log.i(TAG, "遍历结束 textViews.size()=" + textViews.size());
+                                    for (int i = 0; i < textViews.size(); i++) {
+                                        if ("新群聊".equals(textViews.get(i).getContentDescription())) {
+                                            newGroupChat = textViews.get(i);
+                                            Log.i(TAG, "找到新建群聊按钮");
+                                            break;
+                                        }
+                                        //Log.i(TAG, "content-desc:"+textViews.get(i).getContentDescription());
+                                    }
+                                    solo.clickOnView(newGroupChat);
+                                    solo.sleep(1000);
+
+                                    //选择好友建群
+                                    Activity selectContactActivity = solo.getCurrentActivity();
+
+                                    ListView listView = (ListView) solo.getView("es");
+                                    ListAdapter listAdapter = listView.getAdapter();
+                                    int firstVisiblePosition = listView.getFirstVisiblePosition();
+
+                                    //listView的遍历点击操作
+                                    while (true){
+                                        findItemOnListView(listView, new MyItemCallback() {
+                                            @Override
+                                            public void handleItem(Object item, View itemView) {
+                                                Log.i("findItemOnListView", "count:"+count);
+                                                CheckBox view = (CheckBox) itemView.findViewById(0x7f10020c);
+                                                if (view != null && !view.isSelected()){
+                                                    Log.i("findItemOnListView", "handleItem执行");
+                                                    Message msg = handler.obtainMessage();
+                                                    msg.obj = itemView;
+                                                    handler.sendMessage(msg);
+                                                    count++;
+                                                }else{
+                                                    Log.i("findItemOnListView", "else执行");
+                                                }
+                                            }
+
+                                            @Override
+                                            public boolean isEnd() {
+                                                return flag = count >= 4;
+                                            }
+                                        });
+                                        if (flag){
+                                            Log.i("findItemOnListView", "循环执行结束");
+                                            break;
+                                        }
+                                        Log.i("findItemOnListView", "一次循环执行结束");
+                                    }
+                                    //scrollListViewAndSelectItem(listView, positions);
+
+                                }
+                            }.start();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, 1000);
+/*
                 new Thread(){
                     @Override
                     public void run() {
@@ -215,39 +191,6 @@ public class CreateGroup implements IXposedHookLoadPackage {
                             ListAdapter listAdapter = listView.getAdapter();
                             int firstVisiblePosition = listView.getFirstVisiblePosition();
 
-                                    /*Log.i(TAG, "listView HeaderViewsCount:" + listView.getHeaderViewsCount());
-                                    Object item = listAdapter.getItem(listView.getHeaderViewsCount());
-                                    int headerViews = listView.getHeaderViewsCount();
-                                    Log.i(TAG, "item:"+item);
-                                    Object[] items = new Object[listAdapter.getCount()];
-                                    for (int i=0; i<listAdapter.getCount(); i++){
-                                        items[i] = listAdapter.getItem(i);
-                                    }
-                                    Map<String, String> userMap = getGroupUsers(items,"chatroom item");
-                                    Set<Map.Entry<String, String>> userSet = userMap.entrySet();
-                                    for (Map.Entry<String, String> user : userSet){
-                                        Log.i(TAG, user.getKey()+"："+user.getValue());
-                                        int position = Integer.parseInt(user.getKey());
-                                        Log.i(TAG, "position="+position);
-                                        //判断当前显示页面是否有要勾选的复选框
-                                        while(position>lastVisiblePosition){
-                                            solo.drag(500, 500, listView.getChildAt(lastVisiblePosition).getY(),
-                                                    listView.getChildAt(firstVisiblePosition).getY(), 55);
-                                            firstVisiblePosition = listView.getFirstVisiblePosition();
-                                            lastVisiblePosition = listView.getLastVisiblePosition();
-                                        }
-                                        View itemView = listView.getChildAt(position+headerViews);
-                                        solo.clickOnView(itemView);
-                                        *//*CheckBox checkBox = (CheckBox) itemView.findViewById(0x7f10020c);
-                                        if (checkBox == null)
-                                            Log.i(TAG, "checkBox == null");
-                                        else
-                                            Log.i(TAG, "checkBox != null");
-                                        checkBox.setChecked(true);*//*
-
-                                    }
-                                    solo.clickOnView(solo.getView("gd"));*/
-
                             //listView的遍历点击操作
                             for (count=0; count<10; count++){
                                 findItemOnListView(listView, new MyItemCallback() {
@@ -258,11 +201,13 @@ public class CreateGroup implements IXposedHookLoadPackage {
                                         if (view != null && !view.isSelected()){
                                             Solo solo1 = soloInit((Activity) itemView.getContext());
                                             solo1.clickOnView(view);
-                                            /*Log.i(TAG, "handleItem执行");
+                                            */
+/*Log.i(TAG, "handleItem执行");
                                             //view.setChecked(true);
                                             Message message = handler.obtainMessage();
                                             message.obj = view;
-                                            handler.sendMessage(message);*/
+                                            handler.sendMessage(message);*//*
+
                                             count++;
                                             flag = true;
                                         }else{
@@ -283,12 +228,77 @@ public class CreateGroup implements IXposedHookLoadPackage {
 
                     }
                 }.start();
+*/
+
+
+                //查看朋友圈
+                /*new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        try{
+                            final Solo solo = soloInit(launcherActivity);
+                            Log.i(TAG, "当前线程：" + Thread.currentThread().getName() + " " + System.currentTimeMillis());
+                            solo.sleep(6000);
+                            solo.clickOnText("发现");
+                            solo.clickOnText("朋友圈");
+                            solo.sleep(5000);
+
+                            Activity friendActivity = solo.getCurrentActivity();
+                            ListView listView = (ListView) solo.getView("cp7");
+                            //listView的遍历点击操作
+                            while (true){
+                                Log.i(TAG, "count:"+count);
+                                flag = false;
+                                findItemOnListView(listView, new MyItemCallback() {
+                                    @Override
+                                    public void handleItem(Object item, View itemView) {
+                                        Log.i("findItemOnListView", "handleItem执行");
+                                        View co4 = itemView.findViewById(0x7f101229);
+                                        View cmm = itemView.findViewById(0x7f1011f2);
+                                        if (co4 != null) {
+                                            Log.i("findItemOnListView", "找到co4");
+                                            //solo.clickOnView(co4);
+                                            Message msg = handler.obtainMessage();
+                                            msg.obj = co4;
+                                            handler.sendMessage(msg);
+                                            count++;
+                                        }
+                                        else if (cmm != null){
+                                            Log.i("findItemOnListView", "找到cmm");
+                                            //solo.clickOnView(cmm);
+                                            Message msg = handler.obtainMessage();
+                                            msg.obj = cmm;
+                                            handler.sendMessage(msg);
+                                            count++;
+                                        }else{
+                                            Log.i("findItemOnListView", "什么都没找到");
+                                        }
+                                    }
+
+                                    @Override
+                                    public boolean isEnd() {
+                                        return flag = count>=5;
+                                    }
+                                });
+                                if (flag){
+
+                                    Log.i("findItemOnListView", "循环结束");
+                                    break;
+                                }
+                                Log.i("findItemOnListView", "结束一次循环");
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();*/
             }
         });
     }
 
-    public void findItemOnListView(ListView listView, MyItemCallback callback){
-        String TAG = "findItemOnListView";
+    public void findItemOnListView(final ListView listView, final MyItemCallback callback){
+        final String TAG = "findItemOnListView";
         int height = 0;
         int width = listView.getWidth();
         Log.i(TAG, "listView id:"+listView.getId());
@@ -296,19 +306,7 @@ public class CreateGroup implements IXposedHookLoadPackage {
         Activity activity = (Activity) listView.getContext();
         Solo solo = soloInit(activity);
         Log.i(TAG, "first position:"+listView.getFirstVisiblePosition());
-
-/*
-        View itemView = listView.getChildAt(listView.getFirstVisiblePosition());
-        int[] itemXY = new int[2];
-        itemView.getLocationOnScreen(itemXY);
-        Log.i(TAG, "first itemXY:"+itemXY[0]+" "+itemXY[1]);
-
-        int[] listViewXY = new int[2];
-        listView.getLocationOnScreen(listViewXY);
-        Log.i(TAG, "first listViewXY:"+listViewXY[0]+" "+listViewXY[1]);
-        solo.clickOnView(itemView);
-*/
-        while (true){
+        while (!callback.isEnd()){
             height = 0;
             int[] listViewXY = new int[2];
             listView.getChildAt(0).getLocationOnScreen(listViewXY);
@@ -316,25 +314,37 @@ public class CreateGroup implements IXposedHookLoadPackage {
             Log.i(TAG, "firstPosition:"+listView.getFirstVisiblePosition());
             Log.i(TAG, "lastPosition:"+listView.getLastVisiblePosition());
             //遍历当前显示的item
-            for (int i=listView.getFirstVisiblePosition(); i<listView.getLastVisiblePosition(); i++){
+            for (int i=listView.getFirstVisiblePosition(); i<=listView.getLastVisiblePosition(); i++) {
                 Log.i(TAG, "循环开始执行");
-                Object item = listView.getAdapter().getItem(i);
-                Log.i(TAG, "i:"+i);
-                View itemView = listView.getChildAt(i-listView.getFirstVisiblePosition());
-                Log.i(TAG, "i-listView.getFirstVisiblePosition()"+(i-listView.getFirstVisiblePosition()));
-                if (callback.handleItem(item, itemView)){
-                    //操作成功，结束查找操作
-                    return;
-                }
+                final ListAdapter adapter = listView.getAdapter();
+                final int n = i;
+                final View itemView = listView.getChildAt(n - listView.getFirstVisiblePosition());
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Object item = adapter.getItem(n);
+                        Log.i(TAG, "i:" + n);
+                        Log.i(TAG, "i-listView.getFirstVisiblePosition()" + (n - listView.getFirstVisiblePosition()));
+                        callback.handleItem(item, itemView);
+                        if (callback.isEnd()) {
+                            Log.i(TAG, "isEnd");
+                            return;
+                        }
+                    }
+                });
                 height += itemView.getHeight();
-                Log.i(TAG, "height:"+height+" itemView height:"+itemView.getHeight()+" itemView id:"+itemView.getId());
+                Log.i(TAG, "height:" + height + " itemView height:" + itemView.getHeight() + " itemView id:" + itemView.getId());
             }
             int lastVisiblePosition = listView.getLastVisiblePosition();
             if (listView.getCount() == lastVisiblePosition+1){  //listView当前加载的View已经全部显示
                 solo.drag(width/2, width/2, 200, 0, 55);
                 Log.i(TAG, "等待listView加载");
                 solo.sleep(2000);
+                Log.i(TAG, "getCount()"+listView.getCount());
+                Log.i(TAG, "lastVisiblePosition"+lastVisiblePosition);
                 if (listView.getCount() == lastVisiblePosition+1){  //item已经全部显示,没有找到要查找的元素
+                    Log.i(TAG, "findItemOnListView结束");
                     return;
                 }
             }else {     //listView中的元素还没有被完全显示
@@ -449,7 +459,9 @@ public class CreateGroup implements IXposedHookLoadPackage {
     }
 
     interface MyItemCallback {
-        boolean handleItem(Object item, View itemView);
+        void handleItem(Object item, View itemView);
+
+        boolean isEnd();
     }
 
     public Solo soloInit(Activity mActivity) {
