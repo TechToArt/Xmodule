@@ -1,1 +1,1 @@
-include ':app', ':xposedforwechat', ':robotiumforwechat'
+include ':app', ':xposedforwechat'

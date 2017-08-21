@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Xmodule.iml" filepath="$PROJECT_DIR$/Xmodule.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/robotiumforwechat/robotiumforwechat.iml" filepath="$PROJECT_DIR$/robotiumforwechat/robotiumforwechat.iml" />
       <module fileurl="file://$PROJECT_DIR$/xposedforwechat/xposedforwechat.iml" filepath="$PROJECT_DIR$/xposedforwechat/xposedforwechat.iml" />
     </modules>
   </component>
